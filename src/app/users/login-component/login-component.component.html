@@ -1,0 +1,49 @@
+<mat-toolbar>
+    <span>LOGIN</span>
+ </mat-toolbar>
+<mat-card class="my-card">
+   <mat-card-content>
+      <form class="my-form">
+         <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input  matInput #username required placeholder="username" name="username">
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input  matInput  #password required placeholder="Password" name="password">
+         </mat-form-field>
+         
+      </form>
+   </mat-card-content>
+   <mat-card-actions>
+      <button mat-raised-button  color="primary"
+      (click)="login(username.value,password.value); username.value='';password.value=''"
+                 
+      >LOGIN</button>
+
+   </mat-card-actions>
+
+   
+      <!--button mat-raised-button  color="primary"  
+      (click)="authService.SignIn(userName.value, userPassword.value)" >LOGIN</button>
+   <div class="formGroup">
+      <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+        <i class="fab fa-google-plus-g"></i>
+        Log in with Google
+      </button>
+    </div-->
+
+   <!--Error --
+   <mat-form-field>
+    <mat-label>Snack bar duration (seconds)</mat-label>
+    <input type="number" [(ngModel)]="durationInSeconds" matInput>
+  </mat-form-field>
+  
+  <button mat-stroked-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
+    Pizza party
+  </button>
+
+    <!--Error -->
+
+
+</mat-card>
