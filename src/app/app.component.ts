@@ -8,5 +8,5 @@ import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel'
 })
 export class AppComponent {
   title = 'flaskdemo';
-  slides = [{'image': 'assets/images//banner-01.jpg'}, {'image': 'assets/images//banner-02.jpg'},{'image': 'assets/images//banner-03.jpg'}];
+ /// slides = [{'image': 'assets/images//banner-01.jpg'}, {'image': 'assets/images//banner-02.jpg'},{'image': 'assets/images//banner-03.jpg'}];
 }

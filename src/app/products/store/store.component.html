@@ -1,1 +1,14 @@
-<p>store works!</p>
+<table>
+    <thead>
+      <tr>           
+        <th >Id </th>
+        <th >Name {{storedata | json }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of storedata">           
+        <td >1{{item}}</td>
+        <td >1{{item}}</td>
+      </tr>
+    </tbody>
+  </table>

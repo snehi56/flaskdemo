@@ -12,7 +12,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 //import { AuthService } from "./shared/services/auth.service";
 
-
 @NgModule({
   declarations: [
     AppComponent

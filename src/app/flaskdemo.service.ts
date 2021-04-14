@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+///import { StoreData } from './products/store/storedata' ; 
+
+export interface StoreData {
+  id: string;
+  name: string;
+  // items : any;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,25 +32,6 @@ export class FlaskdemoService {
    }
  */
   register(username: String, password: String): any {
-    /* const headers = { 'Content-Type': 'application/json'};
-     const HTTP_OPTIONS = {
-       headers: new HttpHeaders({
-         'Content-Type':  'application/json',
-         'Access-Control-Allow-Credentials' : 'true',
-         'Access-Control-Allow-Origin': '*',
-         'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, PUT, OPTIONS',
-         'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
-       })
-     };
- 
-     const body = { usernam:username , password:password };
-     this.http.post<any>('https://flask-demo-11.nw.r.appspot.com/register/', body,  HTTP_OPTIONS ).subscribe(data => {
-         //this.postId = data.id;
-         console.log(' --in service responce -->'+data);
-     });
- */
-
-
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     const body = { username: username, password: password };
     this.http.post('https://store-api-dev.nw.r.appspot.com/register', body, { headers: headers })
@@ -87,6 +77,36 @@ export class FlaskdemoService {
     }
 
   }
+  
+  getAllStores(): Observable<StoreData[]> {
+    return this.http.get<StoreData[]>('https://store-api-dev.nw.r.appspot.com/stores')
+  }
+
+
+  getAllStores1() : any {
+   let headers = new HttpHeaders().set('Content-Type', 'application/json');
+   const body = { };
+  // return this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body)
+   
+   this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body).subscribe(
+
+        result => {
+          // Handle result
+          console.log("line 91");
+          console.log(result);
+          return result;
+        },
+        error => {
+          this.errors = error;
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+
+  }
+
 }
 
 

@@ -9,14 +9,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponentComponent } from './registration-component/registration-component.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { UsersRoutingModule } from './users-routing.module';
-import { HomeComponent } from '../common/home/home.component';
 
 
 @NgModule({
   declarations: [
     RegistrationComponentComponent,
-    LoginComponentComponent,
-    HomeComponent
+    LoginComponentComponent
 
   ],
   imports: [

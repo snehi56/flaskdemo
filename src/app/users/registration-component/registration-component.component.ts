@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FlaskdemoService } from '../../flaskdemo.service';
+
 @Component({
   selector: 'app-registration-component',
   templateUrl: './registration-component.component.html',
