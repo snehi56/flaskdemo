@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FlaskdemoService } from '../../flaskdemo.service';
 import { StoreData } from '../store/storedata' ; 
-
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { DataSource } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-store',
@@ -18,7 +18,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class StoreComponent implements OnInit {
   
-  storedata : StoreData[] ;
+  //storedata! : StoreData[] ;
+   storedata:any[]=[];
+  //storedata! : any[];
   columnsToDisplay =['id', 'name'];
  // expandedElement: PeriodicElement | null;
 
@@ -30,12 +32,17 @@ export class StoreComponent implements OnInit {
     console.log("component after service");
     console.log( this.storedata);
 */
-
     this.__flaskdemoservice.getAllStores()
-    .subscribe(storedata => this.storedata = storedata);
+    .subscribe(
+        response => {
+          
+          this.storedata = JSON.parse(JSON.stringify(response));
+         // this.storedata = Array.of(response);
+        });
     console.log("component after service");
     console.log( this.storedata);
-
   }
+
+  
 
 }

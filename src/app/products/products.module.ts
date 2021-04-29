@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { MatTableModule } from '@angular/material/table'; 
+import { MatIconModule } from '@angular/material/icon'; 
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+
 
 import { ProductComponent } from './product/product.component';
 import { StoreComponent } from './store/store.component';
@@ -15,6 +19,9 @@ import { ProductsRoutingModule } from './products-routing.module';
   imports: [
     CommonModule,
     ProductsRoutingModule,
+    MatTableModule,
+    MatIconModule,
+    MatToolbarModule,
     //HttpClientInMemoryWebApiModule.forRoot(
       //InMemoryDataService, { dataEncapsulation: false }
    ///// )/////,

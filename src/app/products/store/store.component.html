@@ -1,14 +1,36 @@
-<table>
-    <thead>
-      <tr>           
-        <th >Id </th>
-        <th >Name {{storedata | json }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of storedata">           
-        <td >1{{item}}</td>
-        <td >1{{item}}</td>
-      </tr>
-    </tbody>
-  </table>
+<p>
+  <mat-toolbar>
+  
+  <span>Stores</span>
+  <span class="example-spacer"></span>
+  
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+   <mat-icon>add_business</mat-icon>
+ </button>
+</mat-toolbar>
+</p>
+
+
+  <mat-table [dataSource]="storedata">
+    <!-- User name Definition -->
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;">{{i}}</mat-cell>
+    </ng-container>
+  
+    <!-- Age Definition -->
+    <ng-container matColumnDef="age">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+  
+    <!-- Title Definition -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Items </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+  
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="['username', 'age', 'title']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['username', 'age', 'title'];;let i = index"></mat-row>
+  </mat-table>

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 ///import { StoreData } from './products/store/storedata' ; 
+
 
 export interface StoreData {
   id: string;
@@ -79,17 +80,31 @@ export class FlaskdemoService {
   }
   
   getAllStores(): Observable<StoreData[]> {
-    return this.http.get<StoreData[]>('https://store-api-dev.nw.r.appspot.com/stores')
+    //return this.http.get<StoreData[]>('https://store-api-dev.nw.r.appspot.com/stores');
+
+    return this.http.get<any>('https://store-api-dev.nw.r.appspot.com/stores').pipe(
+      map((data: any) => data.stores ), 
+    catchError(error => { return throwError('There is some Error')})
+);
+    
+    
+    
+   /* .pipe(
+      map((response) => { 
+        console.log(response['stores']);
+        return response;
+    }))*/
   }
 
-
+/*
   getAllStores1() : any {
-   let headers = new HttpHeaders().set('Content-Type', 'application/json');
-   const body = { };
+   //let headers = new HttpHeaders().set('Content-Type', 'application/json');
+   //const body = { };
   // return this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body)
    
-   this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body).subscribe(
+  return this.http.get("https://store-api-dev.nw.r.appspot.com/stores").map(res => res.json());
 
+   this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body).subscribe(
         result => {
           // Handle result
           console.log("line 91");
@@ -105,7 +120,7 @@ export class FlaskdemoService {
         }
       );
 
-  }
+  }*/
 
 }
 

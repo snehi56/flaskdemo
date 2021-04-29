@@ -1,0 +1,24 @@
+.mat-row:nth-child(even) {
+    background: #e4f0ec;
+}
+.mat-header-cell{
+    color:black;
+    font-weight: bold;
+    display:flex;
+    justify-content:center;
+}
+.mat-table,.mat-header-row,.mat-header-cell{
+    border:   black 1px solid;
+}
+.mat-cell{
+    display:flex;
+    justify-content:center;
+}
+.page-title{
+    margin-left : 21px;
+    color: #24235a;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
