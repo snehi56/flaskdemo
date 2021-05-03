@@ -50,16 +50,13 @@ export class StoreComponent implements OnInit {
     console.log( this.storedata);
   }
 
-  openDialog(){
-   // this.__flaskdemoservice.deleteStore(storeName);
-    console.log("deleted storeId");
-  
-  }
-
   addStore(storeName :String){
-    this.storedata.push({'id': 99, 'name': storeName, 'items': ''});
+    //this.storedata = this.storedata.push([this.storedata]);
     console.log(this.storedata);
     this.__flaskdemoservice.addStore(storeName);
+    this.snackBar.open(storeName+' Store Added Successfully !!', 'Fechar', {
+      duration: 2000,
+    });
   }
 
   deleteStore( storeName :String) {

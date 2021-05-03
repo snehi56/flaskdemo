@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError ,BehaviorSubject} from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
+
 ///import { StoreData } from './products/store/storedata' ; 
 
 
@@ -10,6 +11,12 @@ export interface StoreData {
   name: string;
   // items : any;
 }
+export class User {
+ /* id: number;
+  username: string;
+  password: string;
+  token: string;
+*/}
 
 
 @Injectable({
@@ -18,9 +25,20 @@ export interface StoreData {
 export class FlaskdemoService {
   private flaskDemoUrl: String;
   private errors: any;
+
+  //private currentUserSubject: BehaviorSubject<User>;
+  //public currentUser: Observable<User>;
+
+
   constructor(private http: HttpClient) {
     this.flaskDemoUrl = 'https://flask-demo-11.nw.r.appspot.com/';
+   // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    //this.currentUser = this.currentUserSubject.asObservable();
   }
+
+  //public get currentUserValue(): User {
+   // return this.currentUserSubject.value;
+ // }
 
   /* register (username : String,password : String): Observable<User> {
      return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
@@ -102,7 +120,9 @@ export class FlaskdemoService {
 
         result => {
           // Handle result
-          console.log(result)
+          console.log("access token--> "+JSON.stringify(result.access_token));
+          localStorage.setItem('currentUser', JSON.stringify(result.access_token));
+        //  this.currentUserSubject.next(result);
         },
         error => {
           this.errors = error;
@@ -121,6 +141,13 @@ export class FlaskdemoService {
 
   }
   
+  
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    //this.currentUserSubject.next(null);
+  }
+
   getAllStores(): Observable<StoreData[]> {
     //return this.http.get<StoreData[]>('https://store-api-dev.nw.r.appspot.com/stores');
 
