@@ -12,11 +12,13 @@ import {  MatRadioModule} from  '@angular/material/radio';
 import {  MatListModule} from  '@angular/material/list';
 import {MatDatepickerModule} from  '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
- 
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
-imports: [MatDatepickerModule,MatIconModule,MatButtonModule, MatToolbarModule,FormsModule, MatCardModule,MatFormFieldModule,MatInputModule,MatListModule,MatRadioModule,],
+imports: [MatSnackBarModule,MatDialogModule,MatDatepickerModule,MatIconModule,MatButtonModule, MatToolbarModule,FormsModule, MatCardModule,MatFormFieldModule,MatInputModule,MatListModule,MatRadioModule,],
  
-exports: [FormsModule,
+exports: [MatSnackBarModule,MatDialogModule,FormsModule,
 MatDatepickerModule,MatIconModule,MatButtonModule, MatToolbarModule, MatCardModule,MatFormFieldModule,MatInputModule,MatListModule,MatRadioModule,],
  
 })
