@@ -57,6 +57,8 @@ export class StoreComponent implements OnInit {
   }
 
   addStore(storeName :String){
+    this.storedata.push({'id': 99, 'name': storeName, 'items': ''});
+    console.log(this.storedata);
     this.__flaskdemoservice.addStore(storeName);
   }
 
@@ -73,6 +75,9 @@ export class StoreComponent implements OnInit {
     const snack = this.snackBar.open('Deleting selected store : '+storeName);
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
+        this.storedata = this.storedata.filter((value,key)=>{
+          return value.name != storeName;
+        }); 
         this.__flaskdemoservice.deleteStore(storeName);
         snack.dismiss();
         const a = document.createElement('a');
@@ -86,12 +91,10 @@ export class StoreComponent implements OnInit {
         const snack = this.snackBar.open('Cancelled Deleting selected store : '+storeName);
       }
     });
-    this.__flaskdemoservice.getAllStores()
-    .subscribe(
-        response => {
-           this.storedata = JSON.parse(JSON.stringify(response));
-         // this.storedata = Array.of(response);
-        });
+    
+    
+    console.log(this.storedata);
+ 
   }
 
 
