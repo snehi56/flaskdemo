@@ -51,6 +51,48 @@ export class FlaskdemoService {
       );
 
   }
+
+  addStore(storeName: String): any {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const body = { name: storeName };
+    this.http.post('https://store-api-dev.nw.r.appspot.com/store/'+storeName, body, { headers: headers })
+      .subscribe(
+        result => {
+          // Handle result
+          console.log(result)
+        },
+        error => {
+          this.errors = error;
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+
+  }
+
+  deleteStore(storeName: String){ 
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const body = { name: storeName };
+    this.http.delete('https://store-api-dev.nw.r.appspot.com/store/'+storeName)
+      .subscribe(
+        result => {
+          // Handle result
+          console.log(result)
+        },
+        error => {
+          this.errors = error;
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+  }
+
+
+
   async login(username: String, password: String) {
     try {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -86,41 +128,8 @@ export class FlaskdemoService {
       map((data: any) => data.stores ), 
     catchError(error => { return throwError('There is some Error')})
 );
-    
-    
-    
-   /* .pipe(
-      map((response) => { 
-        console.log(response['stores']);
-        return response;
-    }))*/
+  
   }
-
-/*
-  getAllStores1() : any {
-   //let headers = new HttpHeaders().set('Content-Type', 'application/json');
-   //const body = { };
-  // return this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body)
-   
-  return this.http.get("https://store-api-dev.nw.r.appspot.com/stores").map(res => res.json());
-
-   this.http.get<StoreData>('https://store-api-dev.nw.r.appspot.com/stores', body).subscribe(
-        result => {
-          // Handle result
-          console.log("line 91");
-          console.log(result);
-          return result;
-        },
-        error => {
-          this.errors = error;
-        },
-        () => {
-          // 'onCompleted' callback.
-          // No errors, route to new page here
-        }
-      );
-
-  }*/
 
 }
 

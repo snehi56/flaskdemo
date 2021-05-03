@@ -19,19 +19,22 @@ import { DataSource } from '@angular/cdk/table';
 export class StoreComponent implements OnInit {
   
   //storedata! : StoreData[] ;
-   storedata:any[]=[];
-  //storedata! : any[];
+  storedata:any[]=[];
+  storeId!: number;
+  storeName!: String;
+
   columnsToDisplay =['id', 'name'];
+  //addStore = false;
  // expandedElement: PeriodicElement | null;
 
   constructor(private __flaskdemoservice : FlaskdemoService) { }
 
+  onTabClick(){
+   // this.addStore = !this.addStore;  
+  }
+
   ngOnInit(): void {
     
-    /*this.storedata =  this.__flaskdemoservice.getAllStores();
-    console.log("component after service");
-    console.log( this.storedata);
-*/
     this.__flaskdemoservice.getAllStores()
     .subscribe(
         response => {
@@ -41,6 +44,16 @@ export class StoreComponent implements OnInit {
         });
     console.log("component after service");
     console.log( this.storedata);
+  }
+
+  deleteStore(storeName :String){
+    this.__flaskdemoservice.deleteStore(storeName);
+    console.log("deleted storeId");
+  
+  }
+
+  addStore(storeName :String){
+    this.__flaskdemoservice.addStore(storeName);
   }
 
   
