@@ -7,6 +7,7 @@ import { FlaskdemoService } from '../../flaskdemo.service';
 import { StoreData } from '../store/storedata' ; 
 
 import { ConfirmationDialogueComponent } from '../confirmation-dialogue/confirmation-dialogue.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -32,6 +33,7 @@ export class StoreComponent implements OnInit {
  // expandedElement: PeriodicElement | null;
 
   constructor(private __flaskdemoservice : FlaskdemoService,
+              private router : Router,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) { }
 
@@ -40,6 +42,9 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem("currentUser") === null) {
+      this.router.navigate(['users/login']);
+    }
     this.__flaskdemoservice.getAllStores()
     .subscribe(
         response => {

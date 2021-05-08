@@ -1,1 +1,72 @@
-<p>product works!</p>
+<p>
+    <mat-toolbar>
+    <span>Products</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
+  </p>
+  
+    <mat-table [dataSource]="productsdata">
+      <!-- User name Definition -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;">{{i}}</mat-cell>
+      </ng-container>
+    
+      <!-- Age Definition -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      </ng-container>
+    
+      <!-- Title Definition -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="store_id">
+        <mat-header-cell *matHeaderCellDef> Store </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.store_id}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete Product </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon (click)="deleteProduct(row.name)" >delete</mat-icon> 
+          </button>  
+        </mat-cell>
+      </ng-container>
+    
+      <!-- Header and Row Declarations -->
+      <mat-header-row *matHeaderRowDef="['id', 'name', 'price' ,'store_id','delete']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['id', 'name', 'price' ,'store_id','delete'];let i = index"></mat-row>
+    </mat-table>
+  
+  
+    <mat-toolbar>
+      <span>Add Product</span>
+   </mat-toolbar>
+  <mat-card class="my-card">
+     <mat-card-content>
+        <form class="my-form">
+           <mat-form-field class="full-width">
+              <mat-label>Name</mat-label>
+              <input  matInput #storeName required placeholder="storeName" name="storeName">
+           </mat-form-field><br>
+           <!--mat-form-field class="full-width">
+              <mat-label>Items</mat-label>
+              <input  matInput  #password required placeholder="Password" name="password">
+           </mat-form-field-->
+           
+        </form>
+     </mat-card-content>
+     <mat-card-actions>
+        <button mat-raised-button  color="primary"
+        (click)="addProduct();"
+                   
+        >Add</button>
+     </mat-card-actions>
+  </mat-card>
+  
+  
