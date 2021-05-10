@@ -18,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
 imports: [MatSnackBarModule,MatDialogModule,MatDatepickerModule,MatIconModule,MatButtonModule, MatToolbarModule,FormsModule, MatCardModule,MatFormFieldModule,MatInputModule,MatListModule,MatRadioModule,],
  
-exports: [MatSnackBarModule,MatDialogModule,FormsModule,
+exports: [ReactiveFormsModule,MatSnackBarModule,MatDialogModule,FormsModule,
 MatDatepickerModule,MatIconModule,MatButtonModule, MatToolbarModule, MatCardModule,MatFormFieldModule,MatInputModule,MatListModule,MatRadioModule,],
  
 })

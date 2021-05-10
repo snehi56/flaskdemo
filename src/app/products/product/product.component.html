@@ -50,10 +50,18 @@
   <mat-card class="my-card">
      <mat-card-content>
         <form class="my-form">
-           <mat-form-field class="full-width">
+            <mat-form-field class="full-width">
               <mat-label>Name</mat-label>
-              <input  matInput #storeName required placeholder="storeName" name="storeName">
-           </mat-form-field><br>
+              <input  matInput #productName required placeholder="productName" name="productName">
+            </mat-form-field><br>
+            <mat-form-field class="full-width">
+              <mat-label>Price</mat-label>
+              <input type="Number" matInput #price required placeholder="price" name="price">
+            </mat-form-field><br>
+            <mat-form-field class="full-width">
+              <mat-label>Store</mat-label>
+              <input type="Number"  matInput #store_id required placeholder="store_id" name="store_id">
+            </mat-form-field><br>
            <!--mat-form-field class="full-width">
               <mat-label>Items</mat-label>
               <input  matInput  #password required placeholder="Password" name="password">
@@ -63,8 +71,7 @@
      </mat-card-content>
      <mat-card-actions>
         <button mat-raised-button  color="primary"
-        (click)="addProduct();"
-                   
+        (click)="addProduct(productName.value);"                   
         >Add</button>
      </mat-card-actions>
   </mat-card>

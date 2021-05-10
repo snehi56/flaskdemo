@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RegistrationComponentComponent } from './registration-component/registration-component.component';
-import { LoginComponentComponent } from './login-component/login-component.component';
+import { LoginComponent } from './login/login-component';
 import { UsersRoutingModule } from './users-routing.module';
 
 
 @NgModule({
   declarations: [
     RegistrationComponentComponent,
-    LoginComponentComponent
+    LoginComponent
 
   ],
   imports: [
@@ -30,7 +30,7 @@ import { UsersRoutingModule } from './users-routing.module';
     //  { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: '', component: RegistrationComponentComponent },
       { path: 'register', component: RegistrationComponentComponent },
-      { path: 'login', component: LoginComponentComponent },
+      { path: 'login', component: LoginComponent },
      ]),
 
   ]

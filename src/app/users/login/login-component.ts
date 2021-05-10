@@ -4,12 +4,14 @@ import { FlaskdemoService } from '../../flaskdemo.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+//import { AuthenticationService } from '../../_services/authentication.service';
+
 @Component({
   selector: 'app-login-component',
-  templateUrl: './login-component.component.html',
-  styleUrls: ['./login-component.component.scss']
+  templateUrl: './login-component.html',
+  styleUrls: ['./login-component.scss']
 })
-export class LoginComponentComponent implements OnInit {
+export class LoginComponent implements OnInit {
   durationInSeconds = 5;
   constructor( private flaskdemoService :  FlaskdemoService , private router : Router) { }
  
@@ -17,34 +19,18 @@ export class LoginComponentComponent implements OnInit {
  
   username!: String;
   password!: String;
-/*
-  openSnackBar() {
-    this._snackBar.openFromComponent(PizzaPartyComponent, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
-  */
+
   ngOnInit(): void {
     this.username = '';
     this.password = '';
   }
 
-  login(username : String ,password :  String) : void {
+  login(username : string ,password :  string) : void {
     this.username = username;
     this.password = password;
     console.log(username+'---'+password);
     let message = this.flaskdemoService.login(username,password);
-    this.router.navigate(['products/store'])
+    this.router.navigate(['products/store']);
+    console.log('sending to products');
   }
 }
-
-@Component({
-  selector: 'snack-bar-component-example-snack',
-  templateUrl: '/message.html',
-  styles: [`
-    .example-pizza-party {
-      color: hotpink;
-    }
-  `],
-})
-export class PizzaPartyComponent {}

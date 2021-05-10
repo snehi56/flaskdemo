@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule , APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule ,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MyMaterialModule } from  './material.module';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
@@ -10,7 +10,12 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
+//import { JwtInterceptor, ErrorInterceptor, appInitializer } from './_helpers';
+
+//import { AuthenticationService } from './_services';
 //import { AuthService } from "./shared/services/auth.service";
+// used to create fake backend
+//import { fakeBackendProvider } from './_helpers';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,9 @@ import { RouterModule, Routes } from '@angular/router';
      ]),
  
   ],
-  providers: [  ],
+  providers: [ 
+    
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

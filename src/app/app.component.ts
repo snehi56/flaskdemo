@@ -18,8 +18,10 @@ export class AppComponent {
   ){
     if (localStorage.getItem("currentUser") != null) {
       this.currentUser = localStorage.getItem("currentUser");
+      this.router.navigate(['products/store']);
     }else{
       this.currentUser = null;
+      this.router.navigate(['users/login']);
     }
     console.log('--> '+this.currentUser);
   }

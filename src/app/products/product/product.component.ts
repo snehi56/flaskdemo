@@ -32,20 +32,34 @@ export class ProductComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("currentUser") === null) {
+    if (localStorage.getItem("currentUser") == null) {
       this.router.navigate(['users/login']);
     }
     this.__flaskdemoservice.getAllProducts()
     .subscribe(
         response => {
            this.productsdata = JSON.parse(JSON.stringify(response));
-        });
+           console.log(response);
+        },
+        (error) => {
+          this.snackBar.open('Please Login Again', 'Error', {          
+            //this.snackBar.open(productName+' Product Deleted Successfully !!', 'Fechar', {
+              duration: 2000,
+            });
+            this.router.navigate(['users/login']);
+           throw error; 
+        }
+        
+        );
    }
 
-  addProduct(){
-    //this.storedata = this.storedata.push([this.storedata]);
-    //console.log(this.storedata);
-    
+  addProduct(productName:String){
+    console.log(this.productsdata);
+    this.__flaskdemoservice.addProducts(productName,11,33);
+    this.snackBar.open('Unable to add product  !!', 'Error', {
+      duration: 2000,
+    });
+   
   }
 
   deleteProduct( productName :String) {
@@ -62,19 +76,19 @@ export class ProductComponent implements OnInit {
     const snack = this.snackBar.open('Deleting selected product : '+productName);
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-console.log('delete in component confirmed var-->');
-console.log(confirmed);
+      console.log('delete in component confirmed var-->');
+      console.log(confirmed);
 
-        this.productsdata = this.productsdata.filter((value,key)=>{
+        /*this.productsdata = this.productsdata.filter((value,key)=>{
           return value.name != productName;
-        }); 
+        });*/ 
         this.__flaskdemoservice.deleteProduct(productName);
+        //snack.dismiss();
+       // const a = document.createElement('a');
+       // a.click();
+      //  a.remove();
         snack.dismiss();
-        const a = document.createElement('a');
-        a.click();
-        a.remove();
-        snack.dismiss();
-        this.snackBar.open(productName+' Login ad admin !!', 'Fechar', {
+        this.snackBar.open('Please Login as admin !!', 'Error', {
           
         //this.snackBar.open(productName+' Product Deleted Successfully !!', 'Fechar', {
           duration: 2000,

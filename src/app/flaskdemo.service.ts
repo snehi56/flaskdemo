@@ -60,6 +60,10 @@ export class FlaskdemoService {
 
   addStore(storeName: String): any {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    
+
+
     const body = { name: storeName };
     this.http.post('https://store-api-dev.nw.r.appspot.com/store/'+storeName, body, { headers: headers })
       .subscribe(
@@ -77,6 +81,32 @@ export class FlaskdemoService {
       );
 
   }
+
+  addProducts(productName: String,price:Number,store_id : Number): any {
+    let headers = new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem("currentUser"));
+
+    const body = { 'price': price , 'store_id' :  store_id};
+    this.http.post('https://store-api-dev.nw.r.appspot.com/items/'+productName, body, {  
+              headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem("currentUser")
+              })  
+        })
+      .subscribe(
+        result => {
+          // Handle result
+          console.log(result);
+        },
+        error => {
+          this.errors = error;
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+  }
+
 
   deleteStore(storeName: String){ 
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
