@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 import { Router } from '@angular/router';
 import { FlaskdemoService } from './flaskdemo.service';
+import { User } from './shared/services/user';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,16 @@ import { FlaskdemoService } from './flaskdemo.service';
 })
 export class AppComponent {
   title = 'flaskdemo';
-  currentUser: any;
+  currentUser!: User | null;
 
   constructor(
     private router: Router,
     private flaskdemoService :  FlaskdemoService
   ){
+    this.flaskdemoService.currentUser.subscribe(x => this.currentUser = x);
+    
     if (localStorage.getItem("currentUser") != null) {
-      this.currentUser = localStorage.getItem("currentUser");
+      //this.currentUser = localStorage.getItem("currentUser");
       this.router.navigate(['products/store']);
     }else{
       this.currentUser = null;

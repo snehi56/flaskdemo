@@ -2,21 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError ,BehaviorSubject} from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-///import { StoreData } from './products/store/storedata' ; 
+//import { StoreData } from './products/store/storedata' ; 
+import { User } from './shared/services/user' ; 
 
 export interface StoreData {
   id: string;
   name: string;
   // items : any;
 }
-
-export class User {
- /* id: number;
-  username: string;
-  password: string;
-  token: string;
-*/}
-
 
 @Injectable({
   providedIn: 'root'
@@ -25,18 +18,19 @@ export class FlaskdemoService {
   private flaskDemoUrl: String;
   private errors: any;
 
-  //private currentUserSubject: BehaviorSubject<User>;
-  //public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<User> ;
+  
+  public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
     this.flaskDemoUrl = 'https://flask-demo-11.nw.r.appspot.com/';
-   // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    //this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  //public get currentUserValue(): User {
-   // return this.currentUserSubject.value;
- // }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   register(username: String, password: String): any {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -154,12 +148,27 @@ export class FlaskdemoService {
 
       const body = { username: username, password: password };
       this.http.post<any>('https://store-api-dev.nw.r.appspot.com/login', body, { headers: headers }).subscribe(
-
+      /*
         result => {
           // Handle result
           console.log("access token--> "+result.access_token);
-          localStorage.setItem('currentUser', result.access_token);
-        //  this.currentUserSubject.next(result);
+          localStorage.setItem('currentUser', JSON.stringify(result.access_token));
+          this.currentUserSubject.next(result);
+*/
+          user => {
+            // login successful if there's a jwt token in the response
+            if (user && user.access_token) {
+              console.log(user.access_token);
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('currentUser', JSON.stringify(user.access_token));
+              localStorage.setItem('refreshToken', user.access_token);
+              this.currentUserSubject.next(user);
+            }
+  
+            return user;
+          //}
+
+
         },
         error => {
           this.errors = error;
@@ -183,6 +192,9 @@ export class FlaskdemoService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     //this.currentUserSubject.next(null);
+  //this.currentUserSubject = new BehaviorSubject<User>;
+
+  
   }
 
   getAllStores():  Observable<StoreData[]>{
@@ -193,8 +205,9 @@ export class FlaskdemoService {
   }
 
   getAllProducts(): Observable<any[]> {
-    let headers = new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem("currentUser"));
-
+    let headers = new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem("refreshToken"));
+    console.log('Bearer '+localStorage.getItem("refreshToken"));
+    
     return this.http.get(<any>'https://store-api-dev.nw.r.appspot.com/items', { headers: headers }).pipe(
                     map((data: any) => data.items ), 
     catchError(error => { return throwError('There is some Error')}));

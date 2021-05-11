@@ -42,11 +42,8 @@ export class ProductComponent implements OnInit {
            console.log(response);
         },
         (error) => {
-          this.snackBar.open('Please Login Again', 'Error', {          
-            //this.snackBar.open(productName+' Product Deleted Successfully !!', 'Fechar', {
-              duration: 2000,
-            });
-            this.router.navigate(['users/login']);
+           //Handle the error here
+           //If not handled, then throw it
            throw error; 
         }
         
@@ -56,7 +53,7 @@ export class ProductComponent implements OnInit {
   addProduct(productName:String){
     console.log(this.productsdata);
     this.__flaskdemoservice.addProducts(productName,11,33);
-    this.snackBar.open('Unable to add product  !!', 'Error', {
+    this.snackBar.open(productName+' product Added Successfully !!', 'Fechar', {
       duration: 2000,
     });
    
@@ -79,16 +76,16 @@ export class ProductComponent implements OnInit {
       console.log('delete in component confirmed var-->');
       console.log(confirmed);
 
-        /*this.productsdata = this.productsdata.filter((value,key)=>{
+        this.productsdata = this.productsdata.filter((value,key)=>{
           return value.name != productName;
-        });*/ 
+        }); 
         this.__flaskdemoservice.deleteProduct(productName);
-        //snack.dismiss();
-       // const a = document.createElement('a');
-       // a.click();
-      //  a.remove();
         snack.dismiss();
-        this.snackBar.open('Please Login as admin !!', 'Error', {
+        const a = document.createElement('a');
+        a.click();
+        a.remove();
+        snack.dismiss();
+        this.snackBar.open(productName+' Login as admin !!', 'Fechar', {
           
         //this.snackBar.open(productName+' Product Deleted Successfully !!', 'Fechar', {
           duration: 2000,

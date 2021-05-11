@@ -8,7 +8,9 @@ import { StoreData } from '../store/storedata' ;
 
 import { ConfirmationDialogueComponent } from '../confirmation-dialogue/confirmation-dialogue.component';
 import { Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { User } from '../../shared/services/user';
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
@@ -27,6 +29,9 @@ export class StoreComponent implements OnInit {
   storedata:any[]=[];
   storeId!: number;
   storeName!: String;
+  currentUser!: User;
+  currentUserSubscription: Subscription;
+  users: User[] = [];
 
   columnsToDisplay =['id', 'name'];
   //addStore = false;
@@ -35,16 +40,20 @@ export class StoreComponent implements OnInit {
   constructor(private __flaskdemoservice : FlaskdemoService,
               private router : Router,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) { 
+
+                this.currentUserSubscription = this.__flaskdemoservice.currentUser.subscribe(user => {
+                  this.currentUser = user;
+              });
+
+              }
 
   onTabClick(){
    // this.addStore = !this.addStore;  
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem("currentUser") === null) {
-      this.router.navigate(['users/login']);
-    }
+    
     this.__flaskdemoservice.getAllStores()
     .subscribe(
         response => {
